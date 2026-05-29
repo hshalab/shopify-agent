@@ -3,8 +3,8 @@ identity:
   owner_name: ${OWNER_NAME}  # store owner / operator — override via env OWNER_NAME
   locale: en  # store language; override via env LOCALE
 model:
-  provider: opencode-go
-  default: deepseek-v4-flash
+  provider: openrouter
+  default: google/gemini-2.5-flash
 providers: {}
 fallback_providers: []
 credential_pool_strategies: {}
@@ -87,51 +87,51 @@ auxiliary:
     extra_body: {}
     download_timeout: 30
   web_extract:
-    provider: opencode-go
-    model: deepseek-v4-flash
+    provider: openrouter
+    model: google/gemini-2.5-flash
     base_url: ''
     api_key: ''
     timeout: 360
     extra_body: {}
   compression:
-    provider: opencode-go
-    model: deepseek-v4-flash
+    provider: openrouter
+    model: google/gemini-2.5-flash
     base_url: ''
     api_key: ''
     timeout: 120
     extra_body: {}
   session_search:
-    provider: opencode-go
-    model: deepseek-v4-flash
+    provider: openrouter
+    model: google/gemini-2.5-flash
     base_url: ''
     api_key: ''
     timeout: 30
     extra_body: {}
     max_concurrency: 3
   skills_hub:
-    provider: opencode-go
-    model: deepseek-v4-flash
+    provider: openrouter
+    model: google/gemini-2.5-flash
     base_url: ''
     api_key: ''
     timeout: 30
     extra_body: {}
   approval:
-    provider: opencode-go
-    model: deepseek-v4-flash
+    provider: openrouter
+    model: google/gemini-2.5-flash
     base_url: ''
     api_key: ''
     timeout: 30
     extra_body: {}
   mcp:
-    provider: opencode-go
-    model: deepseek-v4-flash
+    provider: openrouter
+    model: google/gemini-2.5-flash
     base_url: ''
     api_key: ''
     timeout: 30
     extra_body: {}
   title_generation:
-    provider: opencode-go
-    model: deepseek-v4-flash
+    provider: openrouter
+    model: google/gemini-2.5-flash
     base_url: ''
     api_key: ''
     timeout: 30

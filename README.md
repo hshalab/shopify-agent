@@ -55,7 +55,7 @@ The Hermes Docker image is intentionally large because it includes the full Herm
    cp .env.example .env
    $EDITOR .env
    ```
-   Required: `OPENCODE_GO_API_KEY` (primary model credential), `OPENROUTER_API_KEY` (still needed for vision + fallback), `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_USERS`, `SHOPIFY_STORE`, `SHOPIFY_CLIENT_ID`, `SHOPIFY_CLIENT_SECRET`.
+   Required: `OPENROUTER_API_KEY` (model credential for all model roles — main, vision, auxiliary, fallback), `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_USERS`, `SHOPIFY_STORE`, `SHOPIFY_CLIENT_ID`, `SHOPIFY_CLIENT_SECRET`. Optional: `OPENCODE_GO_API_KEY` (alternative model provider — switch the providers in `hermes/config.yaml` to use it).
 3. Set the branding in `hermes/config.yaml`: `identity.agent_name` and `owner_name` are interpolated from the matching `.env` vars (`AGENT_NAME`, `OWNER_NAME`); `locale` (default `en`) and `timezone` (default `UTC`) are plain defaults you can edit directly. Note: the brain markdown (`SOUL.md`, `AGENTS.md`, `IDENTITY.md`) is **not** variable-interpolated at runtime, so the agent's display name and the store language are taken from `hermes/USER.md` (next step).
 4. Write `hermes/USER.md` from the template:
    ```bash

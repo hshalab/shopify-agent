@@ -1,0 +1,48 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - name: Leak gate (no secrets / real store identifiers)
+        run: |
+          set -uo pipefail
+          fail=0
+          if git ls-files | grep -E '(^|/)\.env$|(^|/)\.mcp\.json$|(^|/)USER\.md$'; then
+            echo "::error::A real .env / .mcp.json / USER.md is tracked — keep them gitignored (commit only the .example templates)."; fail=1
+          fi
+          if git grep -nE 'shpat_[A-Za-z0-9]|shpca_[A-Za-z0-9]|sk-[A-Za-z0-9]{20}|[0-9]{8,10}:AA[A-Za-z0-9_-]{30}' -- .; then
+            echo "::error::A live-looking secret token was committed."; fail=1
+          fi
+          if git grep -nE '[A-Za-z0-9-]+\.myshopify\.com' -- . | grep -v 'your-store\.myshopify\.com'; then
+            echo "::error::A real *.myshopify.com store domain was committed; use the your-store.myshopify.com placeholder."; fail=1
+          fi
+          if git grep -nE 'gid://shopify/[A-Za-z]+/[0-9]{10,}' -- .; then
+            echo "::error::A real Shopify object GID (10+ digit id) was committed; use a short placeholder id."; fail=1
+          fi
+          if [ "$fail" -ne 0 ]; then exit 1; fi
+          echo "leak gate clean"
+      - name: Bash syntax check
+        run: |
+          shopt -s nullglob
+          for f in hermes/scripts/*.sh; do bash -n "$f"; done
+      - name: Shellcheck
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y shellcheck
+          shopt -s nullglob; files=(hermes/scripts/*.sh)
+          [ ${#files[@]} -eq 0 ] || shellcheck -S error "${files[@]}"
+      - name: Python syntax check
+        run: |
+          shopt -s nullglob
+          for f in hermes/scripts/*.py; do python3 -m py_compile "$f"; done
+      - name: Docker Compose config
+        run: |
+          cp .env.example .env
+          docker compose -f docker-compose.yml --env-file .env.example config --quiet

@@ -1,0 +1,50 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+.mcp.json
+hermes/USER.md
+
+# Runtime state
+.btca/
+hermes/.cache/
+hermes/.env
+hermes/.local/
+hermes/.skills_prompt_snapshot.json
+hermes/cache/
+hermes/auth.json
+hermes/auth.lock
+hermes/bin/
+hermes/channel_directory.json
+hermes/cron/
+hermes/gateway.lock
+hermes/gateway.pid
+hermes/gateway_state.json
+hermes/home/
+hermes/hooks/
+hermes/memories/
+hermes/memory/
+hermes/models_dev_cache.json
+hermes/platforms/
+hermes/plans/
+hermes/sessions/
+hermes/logs/
+hermes/skills/
+hermes/skins/
+hermes/state/
+hermes/state.db
+hermes/state.db-*
+hermes/tmp/
+hermes/workspace/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

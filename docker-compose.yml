@@ -1,0 +1,32 @@
+services:
+  hermes:
+    image: ${HERMES_IMAGE:-ghcr.io/cgaravitoq/hermes-slim:latest}
+    pull_policy: always
+    container_name: hermes
+    restart: unless-stopped
+    # Source brain (config.yaml, *.md, scripts/, tools/) is synced into the
+    # named volume at boot. Runtime state (sessions/, memories/, state.db,
+    # cron/, logs/) lives in the named volume and persists across container
+    # restarts, compose recreates, and dokploy redeploys.
+    command: ["bash", "/opt/init/scripts/start-gateway.sh"]
+    ports:
+      - "127.0.0.1:8642:8642"
+    volumes:
+      - ./hermes:/opt/init:ro
+      - hermes-data:/opt/data
+    networks:
+      - hermes-net
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
+
+networks:
+  hermes-net:
+    driver: bridge
+
+volumes:
+  hermes-data:

@@ -1,0 +1,22 @@
+# USER.md
+
+- **Agent name:** <agent_name>
+- **Store:** <store_name>
+- **Location:** <your_location>
+- **Profile:** <role/profile description>
+- **Language:** <language>
+- **Catalog:** <catalog summary — size, categories>
+
+## Telegram IDs — Roles
+
+| Role | Telegram ID | Description |
+|------|-------------|-------------|
+| **<operator_name> (admin/dev)** | `<your_admin_chat_id>` | Project owner. Receives technical alerts, errors, and system health notifications. Does NOT receive business reports. |
+| **<intermediary_name> (beta)** | `<your_intermediary_chat_id>` | Intermediate tester. Also receives operational business notifications. |
+| **<client_name>** | `<your_client_chat_id>` | End client. Primary recipient of business reports, stock alerts, SEO suggestions, and all operational communication. |
+
+### Routing rules
+
+- **Technical errors and system health** → <operator_name> (`<your_admin_chat_id>`)
+- **Business reports, stock alerts, SEO, suggestions** → <intermediary_name> (`<your_intermediary_chat_id>`) and <client_name> (`<your_client_chat_id>`)
+- **Testing/development** → <intermediary_name> (`<your_intermediary_chat_id>`)

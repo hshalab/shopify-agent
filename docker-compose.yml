@@ -1,6 +1,6 @@
 services:
   hermes:
-    image: ${HERMES_IMAGE:-ghcr.io/cgaravitoq/hermes-slim:latest}
+    image: ${HERMES_IMAGE:-ghcr.io/cgaravitoq/hermes-slim:16baf96}
     pull_policy: always
     container_name: hermes
     restart: unless-stopped

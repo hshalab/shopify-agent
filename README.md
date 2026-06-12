@@ -107,7 +107,7 @@ Do not commit:
 - generated bundled skills under `hermes/skills/`
 - downloaded helper binaries under `hermes/bin/`
 
-`HERMES_IMAGE` is defined in `.env.example` and consumed by `docker-compose.yml`. The default is `ghcr.io/cgaravitoq/hermes-slim:latest`, but production environments should pin it to a tested tag or digest when promoting Hermes upgrades.
+`HERMES_IMAGE` is defined in `.env.example` and consumed by `docker-compose.yml`. The default is pinned to a tested immutable tag (`ghcr.io/cgaravitoq/hermes-slim:16baf96`, the short commit sha of the engine build), so a fresh `docker compose up` reproduces a known-good runtime. Bump it deliberately when promoting a Hermes upgrade. The `:latest` tag also exists if you prefer to live on the edge.
 
 See `docs/release-flow.md` for the `staging` to `main` promotion process.
 

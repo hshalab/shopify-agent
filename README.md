@@ -115,6 +115,12 @@ Cron schedules are source-documented in `hermes/tools/cron.md` and bootstrapped 
 
 This deployment intentionally does not run the Hermes dashboard. The interface is Telegram only, and operational inspection happens through logs and CLI commands.
 
+## Model providers
+
+The Hermes engine is provider-agnostic; this repo just ships an OpenRouter default. In `hermes/config.yaml`, `model.provider` (and each `auxiliary.*.provider` and `fallback_model.provider`) selects the backend, while `model.default` / the per-role `model` fields select the model. Out of the box every role is set to `openrouter` with `google/gemini-2.5-flash`, authenticated by `OPENROUTER_API_KEY` in `.env`.
+
+To point a role at another provider (e.g. `anthropic` or `openai`), set its `provider` and `model` in `hermes/config.yaml`. Per-role overrides for `base_url` and `api_key` are available under `auxiliary.*` for endpoints that need them. The optional `OPENCODE_GO_API_KEY` in `.env` credentials the alternative provider — switch the providers in `hermes/config.yaml` to use it.
+
 ## Security model
 
 The production-facing surface is intentionally narrow — this is deliberate hardening, not a missing feature:
